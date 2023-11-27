@@ -2,6 +2,7 @@ package com.example.service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.ShopDAO;
+import com.example.domain.QueryVO;
 import com.example.domain.ShopVO;
 import java.io.*;
 
@@ -41,5 +43,36 @@ public class ShopServiceImin implements ShopService {
 				System.out.println("이미지 업로드오류:" + e.toString());
 			}
 		}
+	}
+
+	@Override
+	public HashMap<String, Object> list(QueryVO vo) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("list", dao.list(vo));
+		map.put("total", dao.total(vo));
+		return map;
+	}
+
+	@Transactional
+	@Override
+	public HashMap<String, Object> read(int pid, String uid) {
+		dao.viewcnt(pid);
+		return dao.read(pid, uid);
+	}
+
+	@Transactional
+	@Override
+	public void insertFavorites(int pid, String uid) {
+		dao.insertFavorites(pid, uid);
+		dao.updateFavorites(pid, 1);
+		
+	}
+
+	@Transactional
+	@Override
+	public void deleteFavorites(int pid, String uid) {
+		dao.deleteFavorites(pid, uid);
+		dao.updateFavorites(pid, -1);
+		
 	}
 }
