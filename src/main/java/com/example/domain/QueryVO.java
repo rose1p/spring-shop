@@ -1,12 +1,18 @@
 package com.example.domain;
 
 public class QueryVO { //DTO
+	private String key;
 	private String query;
 	private int size;
 	private int page;
 	private int start;
-	
 
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
 	public String getQuery() {
 		return query;
 	}

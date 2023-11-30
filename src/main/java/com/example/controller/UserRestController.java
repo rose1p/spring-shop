@@ -23,6 +23,11 @@ public class UserRestController {
 		return dao.read(uid);
 	}
 	
+	@PostMapping("/update")
+	public void update(@RequestBody UserVO vo) {
+		dao.update(vo);
+	}
+	
 	@PostMapping("/login")
 	public int login(@RequestBody UserVO vo) {
 		int result = 0;
